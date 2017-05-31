@@ -1,0 +1,50 @@
+﻿@model IEnumerable<BrightonReviews.Models.Review>
+
+<div class="container">
+    @foreach (var item in Model)
+    {
+
+        <div class="row well reviewWell">
+            <div class="col-md-12 Review">
+
+                <div class="col-md-2">
+
+                    <article class="starRating">
+                        @{
+
+                            for (int i = 0; i < item.Rating; i++)
+                            {
+                                <i class="fa fa-star " aria-hidden="true"></i>
+                            }
+                        }
+
+                    </article>
+
+                    <label class="reviewBy">
+                        Review by:
+                    </label>
+                    <p>
+                        @Html.DisplayFor(modelItem => item.ReviewerName)
+                    </p>
+
+                    <p class="editReview">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                    </p>
+                </div>
+
+                <div class="col-md-10">
+
+                    <h3>@Html.DisplayFor(modelItem => item.ReviewTitle)</h3>
+                    <article class="reviewBody">
+                        @Html.DisplayFor(modelItem => item.ReviewBody)
+                    </article>
+
+                </div>
+            </div>
+        </div>
+
+                            }
+
+</div>

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<BrightonReviews.Models.VenueViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@ViewBag.Category</h2>
+
+<div class="row well venuesHeader">
+
+    <div class="col-md-8">
+        <p>
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+        </p>
+
+        <p style="margin-bottom:-4px">
+            Order by:
+            @Html.ActionLink("Name", "Index", new { orderBy = "Name" }) |
+            @Html.ActionLink("Rating", "Index", new { orderBy = "AvarageRate" }) |
+            @Html.ActionLink("Reviews", "Index", new { orderBy = "NrOfReviews" })
+        </p>
+    </div>
+
+    
+
+    <div class="col-md-4 searchArea">
+        @using (Ajax.BeginForm(
+            new AjaxOptions
+            {
+                HttpMethod = "get",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "venueList"
+            }))
+        {
+
+            @Html.TextBox("SearchString", null, new { @class = "form-control searchBox", data_autocomplete = Url.Action("Autocomplete") })
+
+            <input type="submit" value="Search" class="btn btn-default searchBtn" />
+
+
+        }
+    </div>
+
+  
+
+</div>
+
+@Html.Partial("_VenueList", Model)
+
+
+
+

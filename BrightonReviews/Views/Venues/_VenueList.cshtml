@@ -1,0 +1,67 @@
+﻿@model IEnumerable<BrightonReviews.Models.VenueViewModel>
+
+<div id="venueList">
+
+    @foreach (var item in Model)
+    {
+
+        string actionName = (string)item.VenueType.Cathegory;
+        string displayName = actionName;
+
+        actionName = actionName + "s";
+
+
+        <div class="col-md-4">
+            <img class="img-responsive img-rounded" src="@item.ImgURL" style="height:200px" />
+            <h2>
+                @item.Name
+            </h2>
+
+            <h4>
+                @Html.ActionLink(displayName, actionName, "Venues")
+
+            </h4>
+
+            @if (item.ReviewCount > 0)
+            {
+                double nrOfStars = Math.Round((double)item.AvarageScore, 1);
+
+                if (nrOfStars % 1 == 0)
+                {
+                    for (int i = 0; i < nrOfStars; i++)
+                    {
+                        <i class="fa fa-star fa-2x" aria-hidden="true"></i>
+                    }
+                }
+                else
+                {
+                    int whole = (int)nrOfStars;
+
+                    for (int i = 0; i < whole; i++)
+                    {
+                        <i class="fa fa-star fa-2x" aria-hidden="true"></i>
+                    }
+
+                    <i class="fa fa-star-half fa-2x" aria-hidden="true"></i>
+                }
+
+                <br />
+                <h4 class="nrOfReviews">Reviews:@item.ReviewCount</h4>
+
+            }
+            else 
+            {
+                <div style="visibility:hidden">
+                    <i class="fa fa-star-half fa-2x" aria-hidden="true"></i>
+                </div>
+                <h4 class="nrOfReviews">No reviews yet</h4>
+            }
+
+            <div>
+                @Html.ActionLink("More..", "Index", "Reviews", new { id = item.Id }, new { @class = "btn btn-primary" })
+            </div>
+            <hr />
+        </div>
+    }
+
+</div>

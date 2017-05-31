@@ -1,0 +1,89 @@
+﻿@model BrightonReviews.Models.VenueViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="well">
+    <div class="row">
+
+        <div class="col-md-5">
+            <img class="img-responsive img-rounded" src="@Model.ImgURL" style="height:280px;margin-top:3px;margin-bottom:15px" />
+
+            <p >
+                @Html.ActionLink("Edit", "Edit", "Venues", new { id = Model.Id }, null) |
+                @Html.ActionLink("Delete", "Delete", "Venues", new { id = Model.Id }, null)
+            </p>
+
+        </div>
+
+        <div class="col-md-3">
+
+            @{
+                string actionName = (string)Model.VenueType.Cathegory;
+                string displayName = actionName;
+
+                actionName = actionName + "s";
+            }
+
+            <h1>@Model.Name</h1>
+
+            <h4>@Model.Address</h4>
+
+            <h3>@Html.ActionLink(displayName, actionName, "Venues")</h3>
+
+            <article class="starRating">
+                @{
+
+                    if (Model.ReviewCount > 0)
+                    {
+                        double nrOfStars = Math.Round((double)Model.AvarageScore, 1);
+
+                        if (nrOfStars % 1 == 0)
+                        {
+                            for (int i = 0; i < nrOfStars; i++)
+                            {
+                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
+                            }
+                        }
+                        else
+                        {
+                            int whole = (int)nrOfStars;
+
+                            for (int i = 0; i < whole; i++)
+                            {
+                                <i class="fa fa-star fa-2x" aria-hidden="true"></i>
+                            }
+
+                            <i class="fa fa-star-half fa-2x" aria-hidden="true"></i>
+                        }
+
+                    }
+                    <h4>Reviews:@Model.ReviewCount</h4>
+                }
+            </article>
+
+
+        </div>
+
+        <div class="col-md-4 venueDescription">
+            <article>@Model.Description</article>
+        </div>
+
+
+    </div>
+
+
+
+    @*<hr />*@
+</div>
+<h2>Reviews</h2>
+
+<p>
+    @Html.ActionLink("Add Review", "Create", new { venueId = Model.Id }, new { @class = "btn btn-success addReview" })
+</p>
+
+
+@Html.Partial("_Reviews", Model.Reviews)
+

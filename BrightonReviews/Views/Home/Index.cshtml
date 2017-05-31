@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@section StartPage
+    {
+    <div class="home-bg">
+        <div class="jumbotron homePage">
+            <h1>Brighton Reviews</h1>
+            <p class="lead"></p>
+            <p>
+            @*<a href="https://asp.net" class="btn btn-primary btn-lg startButton">Learn more &raquo;</a>*@
+                @Html.ActionLink("View All", "Index", "Venues", null, new {@class = "btn btn-lg startButton" })
+            </p>
+        </div>
+    </div>
+}
+
